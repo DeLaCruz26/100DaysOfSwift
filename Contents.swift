@@ -287,7 +287,7 @@ while countDown >= 0 {
     }
     countDown -= 1
 }
- 
+
 print("Blast off!")
 
 //Exiting multiple loops
@@ -295,7 +295,7 @@ outerLoop: for i in 1...10 {
     for j in 1...10 {
         let product = i * j
         print("\(i) * \(j) is \(product)")
-        
+
         if product == 50 {
             print("It's a bullseye!")
             break outerLoop
@@ -317,9 +317,92 @@ var counter = 0
 while true {
     print(" ")
     counter += 1
-    
+
     if counter == 273 {
         break
     }
 }
 
+//Day 5
+
+//Writing functions
+func printHelp() {
+    let message = """
+Welcome to MyApp!
+
+Run this app inside a directory of images and
+MyApp will resize them all into thumbnails
+"""
+    print(message)
+}
+printHelp()
+
+//Accepting parameter
+func square(number: Int) {
+    print(number * number)
+}
+square(number: 8)
+
+//Returning values
+func squared(number: Int) -> Int {
+    return number * number
+}
+let result = squared(number: 8)
+
+//Parameter labels
+func sayHello(to name: String) {
+    print("Hello, \(name)!")
+}
+sayHello(to: "Taylor")
+
+//Omitting parameter labels
+func greet(_ person: String) {
+    print("Hello \(person)!")
+}
+greet("Taylor")
+
+//Default parameters
+func greeting(_ person: String, nicely: Bool = true) {
+    if nicely == true {
+        print("Hello, \(person)")
+    } else {
+        print("Oh, no, it's \(person) again...")
+    }
+}
+greeting("Taylor")
+greeting("taylor", nicely: false)
+
+//Variadic functions
+func variadic(numbers: Int...) {
+    for number in numbers {
+        print("\(number) squared is \(number * number)")
+    }
+}
+variadic(numbers: 1,2,3,4,5)
+
+//Writing throwing functions
+enum PasswordError: Error {
+    case obvious
+}
+
+func checkPassword(_ password: String) throws -> Bool {
+    if password == "password" {
+        throw PasswordError.obvious
+    }
+    return true
+}
+
+//Running throwing functions
+do {
+    try checkPassword("password")
+    print("That password is good!")
+} catch {
+    print("You can't use that password.")
+}
+
+//inout parameters
+func doubleInPlace(number: inout Int) {
+    number *= 2
+}
+var myNum = 10
+doubleInPlace(number: &myNum)
