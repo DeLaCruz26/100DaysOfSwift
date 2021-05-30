@@ -406,3 +406,100 @@ func doubleInPlace(number: inout Int) {
 }
 var myNum = 10
 doubleInPlace(number: &myNum)
+
+//Day 6
+
+//Creating basic closures
+let drive = {
+    print("I'm driving my car")
+}
+drive()
+
+//Accepting parameters in a closure
+let driving = { (place: String) in
+    print("I'm driving to \(place) in my car")
+}
+driving("London")
+
+//Returning values from a closure
+let drivingWithReturn = { (place: String) -> String in
+    return "I'm driving to \(place) in my car"
+}
+let message = drivingWithReturn("London")
+print(message)
+
+//Closures as parameters
+func travel(action: () -> Void) {
+    print("I'm getting ready to go.")
+    action()
+    print("I arrived!")
+}
+travel(action: drive)
+
+//Trailing closure syntax
+travel {
+    print("I'm driving in my car")
+}
+
+//Using closures as parameters when they accept parameters
+func traveled(action: (String) -> Void) {
+    print("I'M getting ready to go.")
+    action("London")
+    print("I arrived!")
+}
+
+traveled { (place: String) in
+    print("I'm going to \(place) in my car")
+}
+
+//Using closures as parameters when they return values
+func travels(action: (String) -> String) {
+    print("I'm getting ready to go")
+    let description = action("London")
+    print(description)
+    print("I arrived!")
+}
+
+travels { (place: String) -> String in
+    return "I'm going to \(place) in my car"
+}
+
+//Shorthand parameter names
+travels {
+    "I'm goin to \($0) in my car"
+}
+
+//Closures with multiple parameters
+func trav(action: (String, Int) -> String) {
+    print("I'm getting ready to go.")
+    let desc = action("London", 60)
+    print(desc)
+    print("I arrived!")
+}
+trav {
+    "I'm going to \($0) at \($1) miles per hour."
+}
+
+//Returning closures from functions
+func travs() -> (String) -> Void {
+    return {
+        print("I'm going to \($0)")
+    }
+}
+let res = travs()
+res("London")
+let res2: Void = travs()("London")
+
+//Capturing values
+func trip() -> (String) -> Void {
+    var counter = 1
+    return {
+        print("\(counter). I'm going to \($0)")
+        counter += 1
+    }
+}
+let result = trip()
+result("London")
+result("London")
+result("London")
+result("London")
